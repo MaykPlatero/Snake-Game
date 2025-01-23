@@ -359,6 +359,8 @@ function loop() {
 }
 }
 
+let startX, startY;
+
 document.addEventListener("touchstart", (e) => {
     e.preventDefault();
     const touch = e.touches[0];
@@ -366,12 +368,9 @@ document.addEventListener("touchstart", (e) => {
     startY = touch.clientY;
 }, { passive: false });
 
-let startX = null;
-let startY = null;
-
 document.addEventListener("touchmove", (e) => {
     e.preventDefault();
-    if (startX === null || startY === null) return;
+    if (startX || startY) return;
 
     const touch = e.touches[0];
     const deltaX = touch.clientX - startX;
