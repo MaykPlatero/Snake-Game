@@ -363,12 +363,14 @@ let startX = null;
 let startY = null;
 
 document.addEventListener("touchstart", (e) => {
+    e.preventDefault(); 
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 }, { passive: false });
 
 document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
     if (startX === null || startY === null) return;
 
     const touch = e.touches[0];
