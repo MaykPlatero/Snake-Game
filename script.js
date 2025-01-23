@@ -359,18 +359,17 @@ function loop() {
 }
 }
 
-let startX, startY;
+let startX = null;
+let startY = null;
 
-document.addEventListener("touchstart", (e) => {
-    e.preventDefault();
+dom_canvas.addEventListener("touchstart", (e) => {
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 }, { passive: false });
 
-document.addEventListener("touchmove", (e) => {
-    e.preventDefault();
-    if (startX || startY) return;
+dom_canvas.addEventListener("touchmove", (e) => {
+    if (startX === null || startY === null) return;
 
     const touch = e.touches[0];
     const deltaX = touch.clientX - startX;
@@ -385,6 +384,7 @@ document.addEventListener("touchmove", (e) => {
             KEY.ArrowLeft = true;
         }
     } else {
+        // Movimento vertical
         if (deltaY > 0 && !KEY.ArrowUp) {
             KEY.resetState();
             KEY.ArrowDown = true;
@@ -397,6 +397,7 @@ document.addEventListener("touchmove", (e) => {
     startX = null;
     startY = null;
 }, { passive: false });
+
 
 function gameOver() {
     maxScore ? null : (maxScore = score);
