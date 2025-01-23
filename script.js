@@ -362,13 +362,13 @@ function loop() {
 let startX = null;
 let startY = null;
 
-dom_canvas.addEventListener("touchstart", (e) => {
+document.addEventListener("touchstart", (e) => {
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 }, { passive: false });
 
-dom_canvas.addEventListener("touchmove", (e) => {
+document.addEventListener("touchmove", (e) => {
     if (startX === null || startY === null) return;
 
     const touch = e.touches[0];
@@ -384,7 +384,6 @@ dom_canvas.addEventListener("touchmove", (e) => {
             KEY.ArrowLeft = true;
         }
     } else {
-        // Movimento vertical
         if (deltaY > 0 && !KEY.ArrowUp) {
             KEY.resetState();
             KEY.ArrowDown = true;
