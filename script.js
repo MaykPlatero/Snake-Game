@@ -366,9 +366,13 @@ document.addEventListener("touchstart", (e) => {
     startY = touch.clientY;
 }, { passive: false });
 
+let startX = null;
+let startY = null;
 
 document.addEventListener("touchmove", (e) => {
     e.preventDefault();
+    if (startX === null || startY === null) return;
+
     const touch = e.touches[0];
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
