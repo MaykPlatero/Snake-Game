@@ -359,40 +359,15 @@ function loop() {
 }
 }
 
-document.getElementById("up").addEventListener("click", () => {
-    if (!KEY.ArrowDown) {
-        KEY.resetState();
-        KEY.ArrowUp = true;
-    }
-});
-document.getElementById("down").addEventListener("click", () => {
-    if (!KEY.ArrowUp) {
-        KEY.resetState();
-        KEY.ArrowDown = true;
-    }
-});
-document.getElementById("left").addEventListener("click", () => {
-    if (!KEY.ArrowRight) {
-        KEY.resetState();
-        KEY.ArrowLeft = true;
-    }
-});
-document.getElementById("right").addEventListener("click", () => {
-    if (!KEY.ArrowLeft) {
-        KEY.resetState();
-        KEY.ArrowRight = true;
-    }
-});
-
-let startX, startY;
-
 document.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 });
 
 document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
     if (!startX || !startY) return;
 
     const touch = e.touches[0];
