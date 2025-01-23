@@ -364,18 +364,16 @@ document.addEventListener("touchstart", (e) => {
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
-});
+}, { passive: false });
+
 
 document.addEventListener("touchmove", (e) => {
     e.preventDefault();
-    if (!startX || !startY) return;
-
     const touch = e.touches[0];
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal Swipe
         if (deltaX > 0 && !KEY.ArrowLeft) {
             KEY.resetState();
             KEY.ArrowRight = true;
@@ -384,7 +382,6 @@ document.addEventListener("touchmove", (e) => {
             KEY.ArrowLeft = true;
         }
     } else {
-        // Vertical Swipe
         if (deltaY > 0 && !KEY.ArrowUp) {
             KEY.resetState();
             KEY.ArrowDown = true;
@@ -396,8 +393,7 @@ document.addEventListener("touchmove", (e) => {
 
     startX = null;
     startY = null;
-});
-
+}, { passive: false });
 
 function gameOver() {
     maxScore ? null : (maxScore = score);
