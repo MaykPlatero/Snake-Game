@@ -4,8 +4,8 @@ let dom_canvas = document.createElement("canvas");
 document.querySelector("#canvas").appendChild(dom_canvas);
 let CTX = dom_canvas.getContext("2d");
 
-const W = (dom_canvas.width = 400);
-const H = (dom_canvas.height = 400);
+const W = (dom_canvas.width = window.innerWidth > 400 ? 400 : window.innerWidth);
+const H = (dom_canvas.height = window.innerHeight > 400 ? 400 : window.innerHeight);
 
 let snake,
     food,
@@ -358,6 +358,71 @@ function loop() {
     gameOver();
 }
 }
+
+document.getElementById("up").addEventListener("click", () => {
+    if (!KEY.ArrowDown) {
+        KEY.resetState();
+        KEY.ArrowUp = true;
+    }
+});
+document.getElementById("down").addEventListener("click", () => {
+    if (!KEY.ArrowUp) {
+        KEY.resetState();
+        KEY.ArrowDown = true;
+    }
+});
+document.getElementById("left").addEventListener("click", () => {
+    if (!KEY.ArrowRight) {
+        KEY.resetState();
+        KEY.ArrowLeft = true;
+    }
+});
+document.getElementById("right").addEventListener("click", () => {
+    if (!KEY.ArrowLeft) {
+        KEY.resetState();
+        KEY.ArrowRight = true;
+    }
+});
+
+let startX, startY;
+
+document.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+});
+
+document.addEventListener("touchmove", (e) => {
+    if (!startX || !startY) return;
+
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal Swipe
+        if (deltaX > 0 && !KEY.ArrowLeft) {
+            KEY.resetState();
+            KEY.ArrowRight = true;
+        } else if (deltaX < 0 && !KEY.ArrowRight) {
+            KEY.resetState();
+            KEY.ArrowLeft = true;
+        }
+    } else {
+        // Vertical Swipe
+        if (deltaY > 0 && !KEY.ArrowUp) {
+            KEY.resetState();
+            KEY.ArrowDown = true;
+        } else if (deltaY < 0 && !KEY.ArrowDown) {
+            KEY.resetState();
+            KEY.ArrowUp = true;
+        }
+    }
+
+    startX = null;
+    startY = null;
+});
+
 
 function gameOver() {
     maxScore ? null : (maxScore = score);

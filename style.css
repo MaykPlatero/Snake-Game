@@ -37,8 +37,17 @@ body {
 }
 
 canvas {
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #000;
     background-color: #181825;
 }
+
+body {
+    font-family: Poppins, sans-serif;
+    font-size: 2.5vw; /* Ajusta o tamanho com base na largura da tela */
+}
+
 
 .container {
     display: flex;
@@ -115,5 +124,24 @@ h2 {
 }
 .container {
     flex-flow: column wrap;
+}
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 400px;
+    width: 100px;
+}
+.controls button {
+    margin: 5px;
+    width: 400px;
+    height: 400px;
+    font-size: 50px;
+    border: none;
+    background-color: #444;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
 }
 }
